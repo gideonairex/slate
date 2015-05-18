@@ -1,0 +1,258 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>API Reference</title>
+
+    <link href="stylesheets/screen.css" rel="stylesheet" type="text/css" media="screen" />
+    <link href="stylesheets/print.css" rel="stylesheet" type="text/css" media="print" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+      <script src="javascripts/all.js" type="text/javascript"></script>
+
+      <script>
+        $(function() {
+          setupLanguages(["http","shell"]);
+        });
+      </script>
+  </head>
+
+  <body class="index">
+    <a href="#" id="nav-button">
+      <span>
+        NAV
+        <img src="images/navbar.png" />
+      </span>
+    </a>
+    <div class="tocify-wrapper">
+      <img src="images/logo.png" />
+        <div class="lang-selector">
+              <a href="#" data-language-name="http">http</a>
+              <a href="#" data-language-name="shell">shell</a>
+        </div>
+        <div class="search">
+          <input type="text" class="search" id="input-search" placeholder="Search">
+        </div>
+        <ul class="search-results"></ul>
+      <div id="toc">
+      </div>
+        <ul class="toc-footer">
+            <li><a href='#'>Sign Up for a Developer Key</a></li>
+            <li><a href='http://github.com/gideoanairex'>Documentation Powered by GideonaireX</a></li>
+        </ul>
+    </div>
+    <div class="page-wrapper">
+      <div class="dark-box"></div>
+      <div class="content">
+        <h1 id="introduction">Introduction</h1>
+
+<h2 id="welcome-to-observation-api-docs.">Welcome to Observation API docs.</h2>
+
+<p>The Observation 360 Suite is a digital observation and evaluation solution that makes it possible to turn every observation into a personalized learning experience that supports meaningful teacher growth.</p>
+
+<p>With the Observation 360 Suite, you can:</p>
+
+<ol>
+<li>Design a yearly evaluation process that improves teacher effectiveness</li>
+<li>Conduct accurate, consistent, and supportive observations</li>
+<li>Create personalized professional learning plans linked to those observations</li>
+<li>Create reports that support compliance requirements</li>
+</ol>
+
+          <h1 id="authentication">Authentication</h1>
+<pre class="highlight http"><code><span class="nf">POST</span> <span class="nn">/api/&lt;version&gt;/&lt;request&gt;</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">X-Engine-Id</span><span class="p">:</span> <span class="s">&lt;x-engine-id&gt;</span>
+<span class="na">X-Engine-Secret</span><span class="p">:</span> <span class="s">&lt;x-engine-secret&gt;</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+
+<span class="p">{</span><span class="w"> </span><span class="s2">"PAYLOAD"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"YOUR PAYLOAD"</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span></code></pre>
+<pre class="highlight http"><code><span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+
+<span class="p">{</span><span class="w"> </span><span class="s2">"RESULT"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"RESULT OF REQUEST"</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span></code></pre>
+<pre class="highlight shell"><code><span class="gp">$ </span>curl <span class="s2">"http://&lt;domain&gt;/api/&lt;version&gt;/&lt;request&gt;"</span>
+    -H <span class="s2">"X-Engine-Id: &lt;x-engine-id&gt;"</span>
+    -H <span class="s2">"X-Engine-Secret: &lt;x-engine-secret&gt;"</span>
+</code></pre>
+<pre class="highlight shell"><code><span class="gp">$ </span><span class="o">{</span> <span class="s2">"RESULT"</span> : <span class="s2">"RESULTS OF REQUEST"</span> <span class="o">}</span>
+</code></pre>
+
+<blockquote>
+<p>Make sure to replace <code class="prettyprint">domain</code>, <code class="prettyprint">x-engine-id</code> and <code class="prettyprint">x-engine-secret</code> with your domain, consumer id and consumer secret respectiveley.</p>
+</blockquote>
+
+<p>Observations has an application security which needs to be passed everytime there is a request. This is to determine where the requests are coming from.</p>
+
+<h3 id="needed-headers">Needed Headers</h3>
+
+<p>Get this secrets from the administrator.</p>
+
+<ol>
+<li><code class="prettyprint">X-Engine-Id: &lt;consumer-id&gt;</code></li>
+<li><code class="prettyprint">X-Engine-Secret: &lt;consumer-secret&gt;</code></li>
+</ol>
+
+<h3 id="api-endpoint">API Endpoint</h3>
+
+<p>These are the variables for each endpoints. Example:</p>
+
+<ol>
+<li><code class="prettyprint">&lt;version&gt;: v1</code></li>
+<li><code class="prettyprint">&lt;requetst&gt;: /observations</code></li>
+<li><code class="prettyprint">&lt;domain&gt;: devdubai101.schoolimprovement.com</code></li>
+</ol>
+
+<aside class="notice">
+    You must replace <code>consumer-id</code> and <code>consumer-secret</code>with the given Consumer id and secret respectiveley.
+</aside>
+
+<h2 id="login">Login</h2>
+
+<blockquote>
+<p>To login, use this code enter loginName and password:</p>
+</blockquote>
+<pre class="highlight http"><code><span class="nf">POST</span> <span class="nn">/api/v1/legacy/authenticate</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">X-Engine-Id</span><span class="p">:</span> <span class="s">&lt;x-engine-id&gt;</span>
+<span class="na">X-Engine-Secret</span><span class="p">:</span> <span class="s">&lt;x-engine-secret&gt;</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+
+<span class="p">{</span><span class="w">
+    </span><span class="s2">"loginName"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"testfoo"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"password"</span><span class="w">  </span><span class="p">:</span><span class="w"> </span><span class="s2">"testfoo"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<pre class="highlight http"><code><span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="p">:</span> <span class="s">application/json</span>
+
+<span class="p">{</span><span class="w">
+    </span><span class="s2">"message"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Created session"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"payload"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"sessionToken "</span><span class="p">:</span><span class="w"> </span><span class="s2">"MzJiNGM4ZWVkMjgxMjY0ZTdmYjQ1YWUwMGE0ZTBkN2ZkMTA4YzA3MDVhMzQwNzI3MTBiNDk4ZDc2ZDU2ZjY1NQ=="</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"PersonnelId"</span><span class="w">  </span><span class="p">:</span><span class="w"> </span><span class="mi">13778</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"ClientId"</span><span class="w">     </span><span class="p">:</span><span class="w"> </span><span class="mi">396466</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"EmailAddress"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"saudia.tepace@globalzeal.net"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"FirstName"</span><span class="w">    </span><span class="p">:</span><span class="w"> </span><span class="s2">"Test"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"LastName"</span><span class="w">     </span><span class="p">:</span><span class="w"> </span><span class="s2">"Foo"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<pre class="highlight shell"><code><span class="c"># With shell, you can just pass the correct header with each request</span>
+curl <span class="s2">"http://&lt;domain&gt;/api/v1/legacy/authenticate"</span>
+    -H <span class="s2">"X-Engine-Id: &lt;x-engine-id&gt;"</span>
+    -H <span class="s2">"X-Engine-Secret: &lt;x-engine-secret&gt;"</span>
+    --data <span class="s2">"loginName=&lt;username&gt;&amp;password=testfoo"</span>
+</code></pre>
+
+<p>This endpoint will login the user and return the bearer token.</p>
+
+<h3 id="attributes">Attributes</h3>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>sessionToken</td>
+<td>Bearer token used for accessing the api</td>
+</tr>
+<tr>
+<td>data</td>
+<td>user details</td>
+</tr>
+</tbody></table>
+
+<h3 id="login-user">Login user</h3>
+
+<p><code class="prettyprint">POST /api/v1/legacy/authenticate</code></p>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>loginName</td>
+<td>username of user</td>
+</tr>
+<tr>
+<td>password</td>
+<td>password of user</td>
+</tr>
+</tbody></table>
+
+          <h1 id="errors">Errors</h1>
+
+<aside class="notice">This error section is stored in a separate file in `includes/_errors.md`. Slate allows you to optionally separate out your docs into many files&hellip;just save them to the `includes` folder and add them to the top of your `index.md`&rsquo;s frontmatter. Files are included in the order listed.</aside>
+
+<p>The Kittn API uses the following error codes:</p>
+
+<table><thead>
+<tr>
+<th>Error Code</th>
+<th>Meaning</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>400</td>
+<td>Bad Request &ndash; Your request sucks</td>
+</tr>
+<tr>
+<td>401</td>
+<td>Unauthorized &ndash; Your API key is wrong</td>
+</tr>
+<tr>
+<td>403</td>
+<td>Forbidden &ndash; The kitten requested is hidden for administrators only</td>
+</tr>
+<tr>
+<td>404</td>
+<td>Not Found &ndash; The specified kitten could not be found</td>
+</tr>
+<tr>
+<td>405</td>
+<td>Method Not Allowed &ndash; You tried to access a kitten with an invalid method</td>
+</tr>
+<tr>
+<td>406</td>
+<td>Not Acceptable &ndash; You requested a format that isn&rsquo;t json</td>
+</tr>
+<tr>
+<td>410</td>
+<td>Gone &ndash; The kitten requested has been removed from our servers</td>
+</tr>
+<tr>
+<td>418</td>
+<td>I&rsquo;m a teapot</td>
+</tr>
+<tr>
+<td>429</td>
+<td>Too Many Requests &ndash; You&rsquo;re requesting too many kittens! Slow down!</td>
+</tr>
+<tr>
+<td>500</td>
+<td>Internal Server Error &ndash; We had a problem with our server. Try again later.</td>
+</tr>
+<tr>
+<td>503</td>
+<td>Service Unavailable &ndash; We&rsquo;re temporarially offline for maintanance. Please try again later.</td>
+</tr>
+</tbody></table>
+
+      </div>
+      <div class="dark-box">
+          <div class="lang-selector">
+                <a href="#" data-language-name="http">http</a>
+                <a href="#" data-language-name="shell">shell</a>
+          </div>
+      </div>
+    </div>
+  </body>
+</html>
